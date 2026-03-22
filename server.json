@@ -1,0 +1,31 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "eu.ansvar/lithuanian-financial-regulation-mcp",
+  "description": "Query Lietuvos bankas (Bank of Lithuania) regulatory provisions, sourcebooks, and enforcement actions",
+  "repository": {
+    "url": "https://github.com/Ansvar-Systems/lithuanian-financial-regulation-mcp",
+    "source": "github"
+  },
+  "homepage": "https://ansvar.eu",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "keywords": [
+    "lietuvos-bankas",
+    "lithuanian-financial-regulation",
+    "financial-services",
+    "compliance",
+    "enforcement",
+    "mcp",
+    "ansvar"
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@ansvar/lithuanian-financial-regulation-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
