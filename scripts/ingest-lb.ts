@@ -1035,13 +1035,23 @@ async function crawlDocuments(
       continue;
     }
 
-    const { docs, pagesCompleted } = await discoverDocuments(
-      listing.sourcebookId,
-      listing.basePath,
-      listing.label,
-      listing.maxPages,
-      startPage,
-    );
+    let docs: DiscoveredDoc[];
+    let pagesCompleted: number;
+    try {
+      ({ docs, pagesCompleted } = await discoverDocuments(
+        listing.sourcebookId,
+        listing.basePath,
+        listing.label,
+        listing.maxPages,
+        startPage,
+      ));
+    } catch (err) {
+      console.error(
+        `  Nepavyko atrasti dokumentu (${listing.label}): ${err instanceof Error ? err.message : String(err)}`,
+      );
+      errors++;
+      continue;
+    }
 
     progress.doc_pages_completed[listing.sourcebookId] = pagesCompleted;
 
