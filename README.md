@@ -61,8 +61,7 @@ Ingestion fetches from the upstream source(s) listed under **Sources** below and
 
 | Source | Source URL | Terms / license URL | License basis | Attribution required | Commercial use | Redistribution / caching | Notes |
 |---|---|---|---|---|---|---|---|
-| _Source not yet recorded_ | _N/A_ | _N/A_ | Unverified — confirm with the upstream provider before reuse | Unverified | Unverified | Unverified | This MCP's ingestion script downloads from one or more upstream sources whose terms have not been recorded here. Self-hosters must inspect the ingestion script and confirm the rights basis for each source before commercial use. |
-
+| [Lietuvos bankas (Bank of Lithuania)](https://www.lb.lt/) | https://www.lb.lt/ | [Terms](https://www.lb.lt/) | Public domain — Lithuanian Copyright Act (Autorių teisių ir gretutinių teisių įstatymas) Art. 5(1) excludes legal acts and official documents from copyright; Lietuvos bankas does not publish a separate Creative Commons site licence | Yes | Conditional | Conditional | Scrapes B |
 
 ## What this repository does not provide
 
