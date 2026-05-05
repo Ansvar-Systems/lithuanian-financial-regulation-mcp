@@ -14,6 +14,56 @@ source-available servers published for self-hosting.
 It makes no outbound network calls except to the upstream sources during
 ingestion — no analytics, no phone-home.
 
+## Why this exists
+
+LLMs answering compliance, security, or legal questions from training data
+alone will fabricate citations — confidently producing article numbers,
+statute names, and source URLs that do not exist, or that do not say what
+the model claims. This MCP exists so an agent can call a tool that returns
+the real text, the real identifier, and the real source URL straight from
+the indexed materials — and ground an answer rather than recall it.
+
+One MCP, one corpus. The point is composition.
+
+The **Ansvar Gateway** ([gateway.ansvar.eu](https://gateway.ansvar.eu))
+joins this MCP with the rest of the Ansvar fleet behind a single
+authenticated endpoint — 300+ servers covering legal jurisdictions, EU
+regulations, security frameworks, sector regulators, privacy-pattern
+catalogues, and risk-scoring tools. That lets an agent run cross-domain
+workflows that no single MCP can serve alone:
+
+- **Threat model and TARA.** Threat enumeration → known component
+  vulnerabilities → severity scoring → applicable AI, cybersecurity, and
+  automotive obligations → privacy threats. Every finding traceable to
+  its source.
+- **Gap analysis.** Target framework requirements → current-state
+  evidence → unmet obligations → remediation guidance and authority
+  opinions. Every gap traceable to the specific requirement that flagged
+  it.
+- **Data Protection Impact Assessment.** Privacy regulation articles →
+  national DPA guidance → privacy-pattern catalogue → applicable case
+  law.
+
+### Getting high-quality citations
+
+Citation accuracy degrades when an agent's context fills up. Long inputs
+cause retrieval-stage drift — the model recalls claim text correctly but
+misattributes the source. Two practices keep accuracy high:
+
+1. **Focused first pass, checking-agent second pass.** Query a small,
+   relevant set of MCPs first, then run a separate agent whose only job
+   is to re-resolve each citation against the source MCP and flag any
+   that no longer match. The checking agent uses the same MCP tools as
+   the synthesis agent.
+2. **Pull the source text verbatim when in doubt.** Every citation an
+   agent emits points back to a tool call against this server. You — or
+   another agent — can call the same tool with the same identifier and
+   read the raw statute, article, or standard text directly. If the
+   verbatim text doesn't support what the agent claimed, the citation
+   was misused, regardless of whether the identifier was real.
+
+Both patterns work the same way self-hosted or through the gateway.
+
 ## Two ways to use it
 
 **Self-host (free, Apache 2.0)** — clone this repo, run the ingestion script to build your local database from the listed upstream sources, point your MCP client at the local server. Instructions below.
