@@ -25,9 +25,9 @@ the indexed materials — and ground an answer rather than recall it.
 
 One MCP, one corpus. The point is composition.
 
-The **Ansvar Gateway** ([gateway.ansvar.eu](https://gateway.ansvar.eu))
-joins this MCP with the rest of the Ansvar fleet behind a single
-authenticated endpoint — 300+ servers covering legal jurisdictions, EU
+The **Ansvar Gateway** ([ansvar.eu](https://ansvar.eu)) joins this MCP
+with the rest of the Ansvar fleet behind a single authenticated
+endpoint — 300+ servers covering legal jurisdictions, EU
 regulations, security frameworks, sector regulators, privacy-pattern
 catalogues, and risk-scoring tools. That lets an agent run cross-domain
 workflows that no single MCP can serve alone:
