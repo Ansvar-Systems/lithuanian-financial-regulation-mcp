@@ -5,15 +5,24 @@
 # The image expects a pre-built database at /app/data/lb.db.
 # Override with LB_DB_PATH for a custom location.
 
-# --- Stage 1: Build TypeScript ---
+# --- Stage 1: Build TypeScript + native bindings ---
 FROM node:20-slim AS builder
 
 WORKDIR /app
+# Build deps for better-sqlite3 native module (Debian-based image; no apk)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      python3 make g++ \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY package.json package-lock.json* ./
-RUN npm ci --ignore-scripts
+# Allow postinstall scripts so better-sqlite3 builds its native .node binding
+RUN npm ci
 COPY tsconfig.json ./
 COPY src/ src/
 RUN npm run build
+
+# Prune dev deps but keep the prebuilt native binding
+RUN npm prune --omit=dev
 
 # --- Stage 2: Production ---
 FROM node:20-slim AS production
@@ -23,9 +32,11 @@ ENV NODE_ENV=production
 ENV LB_DB_PATH=/app/data/lb.db
 
 COPY package.json package-lock.json* ./
-RUN npm ci --omit=dev --ignore-scripts && npm cache clean --force
-
 COPY --from=builder /app/dist/ dist/
+COPY --from=builder /app/node_modules/ node_modules/
+
+# Database baked into image (provisioned from Release by ghcr-build.yml)
+COPY data/database.db data/lb.db
 
 # Non-root user for security
 RUN addgroup --system --gid 1001 mcp && \
